@@ -2,28 +2,28 @@ resource "aws_security_group" "websg" {
   vpc_id = aws_vpc.network.id
   name   = "websg"
   ingress {
-    from_port        = 80
-    to_port          = 80
-    cidr_blocks      = ["0.0.0.0/0"]
-    protocol         = "tcp"
-    ipv6_cidr_blocks = ["::/0"]
+    from_port        = local.http_port
+    to_port          =  local.http_port
+    cidr_blocks      = [local.anywhere]
+    protocol         = local.tcp
+    ipv6_cidr_blocks = [local.anywhere_ipv6]
 
   }
   ingress {
-    from_port        = 22
-    to_port          = 22
-    cidr_blocks      = ["0.0.0.0/0"]
-    protocol         = "tcp"
-    ipv6_cidr_blocks = ["::/0"]
+    from_port        = local.ssh_port
+    to_port          = local.ssh_port
+    cidr_blocks      = [local.anywhere]
+    protocol         = local.tcp
+    ipv6_cidr_blocks = [local.anywhere_ipv6]
 
   }
 
   egress {
     from_port        = 0
     to_port          = 0
-    cidr_blocks      = ["0.0.0.0/0"]
-    protocol         = "-1"
-    ipv6_cidr_blocks = ["::/0"]
+    cidr_blocks      = [local.anywhere]
+    protocol         = local.any_protocol
+    ipv6_cidr_blocks = [local.anywhere_ipv6]
 
   }
   tags = {
