@@ -17,3 +17,21 @@ variable "subnet_availability_zone" {
   default = ["ap-south-1a", "ap-south-1b", "ap-south-1a", "ap-south-1b", "ap-south-1a", "ap-south-1b"]
 
 }
+
+variable "key_pair_name" {
+  type    = string
+  default = "my_idrsa"
+
+}
+
+variable "ami_id" {
+  type    = string
+  default = "ami-007020fd9c84e18c7"
+
+}
+
+variable "instance_type" {
+  type    = string
+  default = "t2.micro"
+
+}
