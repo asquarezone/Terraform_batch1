@@ -11,6 +11,17 @@ variable "subnet_names" {
 
 }
 
+variable "public_subnets" {
+  type    = list(string)
+  default = ["web-1", "web-2"]
+}
+
+variable "private_subnets" {
+  type    = list(string)
+  default = ["app-1", "app-2", "db-1", "db-2"]
+
+}
+
 
 variable "subnet_availability_zone" {
   type    = list(string)

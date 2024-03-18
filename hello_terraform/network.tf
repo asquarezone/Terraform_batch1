@@ -39,16 +39,21 @@ resource "aws_route_table" "public" {
   }
 }
 
-resource "aws_route_table_association" "web1" {
-  subnet_id      = aws_subnet.subnets[0].id
-  route_table_id = aws_route_table.public.id
+data "aws_subnets" "public" {
+
+  filter {
+    name   = "tag:Name"
+    values = var.public_subnets
+  }
+  depends_on = [aws_subnet.subnets]
 }
 
-resource "aws_route_table_association" "web2" {
-  subnet_id      = aws_subnet.subnets[1].id
+resource "aws_route_table_association" "public" {
+  for_each       = toset(data.aws_subnets.public.ids)
+  subnet_id      = each.key
   route_table_id = aws_route_table.public.id
+  depends_on     = [data.aws_subnets.public]
 }
-
 
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.network.id
@@ -58,23 +63,20 @@ resource "aws_route_table" "private" {
 
 }
 
-resource "aws_route_table_association" "app1" {
-  subnet_id      = aws_subnet.subnets[2].id
-  route_table_id = aws_route_table.private.id
+data "aws_subnets" "private" {
+
+  filter {
+    name   = "tag:Name"
+    values = var.private_subnets
+  }
+  depends_on = [aws_subnet.subnets]
 }
 
-resource "aws_route_table_association" "app2" {
-  subnet_id      = aws_subnet.subnets[3].id
+resource "aws_route_table_association" "private" {
+  for_each       = toset(data.aws_subnets.private.ids)
+  subnet_id      = each.key
   route_table_id = aws_route_table.private.id
+  depends_on     = [data.aws_subnets.private]
 }
 
-resource "aws_route_table_association" "db1" {
-  subnet_id      = aws_subnet.subnets[4].id
-  route_table_id = aws_route_table.private.id
-}
-
-resource "aws_route_table_association" "db2" {
-  subnet_id      = aws_subnet.subnets[5].id
-  route_table_id = aws_route_table.private.id
-}
 
