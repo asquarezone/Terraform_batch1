@@ -8,9 +8,9 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "dmt-state-batch1"
-    key    = "ntier/terraform.tfstate"
-    region = "ap-south-1"
+    bucket         = "dmt-state-batch1"
+    key            = "ntier/terraform.tfstate"
+    region         = "ap-south-1"
     dynamodb_table = "dmtlock_batch1"
   }
 }
@@ -23,5 +23,5 @@ provider "aws" {
       Environment = "Dev"
     }
   }
-  
+
 }

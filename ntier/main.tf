@@ -1,15 +1,30 @@
-resource "aws_vpc" "ntier" {
-  cidr_block = "192.168.0.0/16"
-  tags = {
-    Name = "ntier"
-  }
+resource "aws_key_pair" "ntier" {
+  key_name   = "ntier"
+  public_key = file("~/.ssh/id_rsa.pub")
+
 }
 
-resource "aws_subnet" "web" {
-    vpc_id = aws_vpc.ntier.id
-    cidr_block = "192.168.1.0/24"
-    tags = {
-      Name = "web"
-    }
-  
+data "aws_vpc" "default" {
+  default = true
 }
+
+
+resource "aws_security_group" "openall" {
+  vpc_id = data.aws_vpc.default.id
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+  ingress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+}
+
