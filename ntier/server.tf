@@ -30,5 +30,4 @@ resource "null_resource" "server" {
 
   }
 
-
 }
