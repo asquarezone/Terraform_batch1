@@ -1,6 +1,6 @@
 module "vpc" {
     source = "./modules/vpc"
-    network_cidr = "192.168.0.0/16"
+    network_cidr = var.vpc_cidr
     subnets = ["web-1", "web-2", "app-1", "app-2"]
     public_subnets = ["web-1", "web-2"]
 }
