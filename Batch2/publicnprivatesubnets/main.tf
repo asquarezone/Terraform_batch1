@@ -58,3 +58,35 @@ resource "aws_route_table_association" "public" {
   route_table_id = aws_route_table.public.id
 
 }
+
+resource "aws_eip" "nat" {
+    count = var.enable_nat_gateway ? 1 : 0
+
+}
+
+resource "aws_nat_gateway" "ntier" {
+  count         = var.enable_nat_gateway ? 1 : 0
+  subnet_id     = aws_subnet.public[0].id
+  allocation_id = aws_eip.nat[0].id
+}
+
+# we need default route table id
+
+data "aws_route_table" "default" {
+    filter {
+      name = "association.main"
+      values = [ true ]
+    }
+    vpc_id = aws_vpc.ntier.id
+    depends_on = [ aws_subnet.private ]
+}
+
+
+resource "aws_route" "nat_route" {
+    count = var.enable_nat_gateway ? 1 : 0
+    
+    route_table_id = data.aws_route_table.default.id
+    destination_cidr_block = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.ntier[0].id
+  
+}
