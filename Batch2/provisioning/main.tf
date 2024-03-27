@@ -5,7 +5,9 @@ resource "aws_instance" "nginx" {
     key_name = var.key_pair
     availability_zone = var.availability_zone
     vpc_security_group_ids = [ var.security_group_id ]
-
+    tags = {
+      Name  = format("web-%s",terraform.workspace)
+    }
     
 }
 
@@ -29,6 +31,7 @@ resource "null_resource" "for_provisioning" {
          ]
       
     }
+    
   
 }
 
