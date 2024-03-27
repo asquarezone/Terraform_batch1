@@ -26,8 +26,7 @@ resource "null_resource" "for_provisioning" {
     provisioner "remote-exec" {
         inline = [ 
             "sudo apt update",
-            "sudo apt install nginx -y",
-            "sudo apt install tree -y"
+            "sudo apt install nginx -y"
          ]
       
     }
