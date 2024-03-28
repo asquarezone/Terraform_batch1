@@ -1,0 +1,27 @@
+---
+
+version: "3.8"
+services:
+  web:
+    image: nginx
+    ports:
+      - 80
+    networks:
+      - myapp
+  db:
+    image: mysql:8.0-debian
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootroot
+      - MYSQL_DATABASE=employees
+      - MYSQL_USER=dmt
+      - MYSQL_PASSWORD=dmtdmt
+    volumes:
+      - empdb:/var/lib/mysql
+    networks:
+      - myapp
+
+volumes:
+  empdb:
+
+networks:
+  myapp:
