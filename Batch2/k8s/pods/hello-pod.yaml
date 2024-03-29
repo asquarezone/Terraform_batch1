@@ -7,3 +7,8 @@ spec:
   containers:
     - name: nginx
       image: nginx:latest
+    - name: test
+      image: alpine
+      command:
+        - sleep
+        - 1d
