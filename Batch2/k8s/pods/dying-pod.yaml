@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dying
+spec:
+  containers:
+    - name: suicidal
+      image: alpine
+      command:
+        - sleep
+        - 5s
