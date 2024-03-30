@@ -3,6 +3,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web-deploy
+  annotations:
+    kubernetes.io/change-cause: "version 3"
 spec:
   minReadySeconds: 2
   replicas: 4
@@ -18,11 +20,11 @@ spec:
     metadata:
       labels:
         app: web
-        version: v2
+        version: v3
     spec:
       containers:
         - name: web
-          image: shaikkhajaibrahim/dmtest:2.0
+          image: shaikkhajaibrahim/dmtest:3.0
           ports:
             - name: webport
               containerPort: 80
