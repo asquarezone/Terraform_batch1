@@ -1,0 +1,29 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hellocj
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    metadata:
+      labels:
+        app: reconcile
+    spec:
+      
+      backoffLimit: 6
+      selector:
+        matchLabels:
+          app: reconcile
+      template:
+        metadata:
+          labels:
+            app: reconcile
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: job
+              image: alpine
+              command:
+                - sleep
+                - 15s
