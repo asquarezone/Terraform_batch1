@@ -1,0 +1,21 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: log-exporter
+spec:
+  minReadySeconds: 2
+  selector:
+    matchLabels:
+      app: log-exporter
+  template:
+    metadata:
+      labels:
+        app: log-exporter
+    spec:
+      containers:
+        - name: log-exporter
+          image: alpine
+          command:
+            - sleep
+            - 1d
