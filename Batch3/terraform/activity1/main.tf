@@ -2,7 +2,7 @@
 terraform {
   required_providers {
     aws = {
-      source = "hashicorp/aws"
+      source  = "hashicorp/aws"
       version = "5.46.0"
     }
   }
@@ -16,5 +16,5 @@ provider "aws" {
 # find a resource for creating s3
 
 resource "aws_s3_bucket" "first" {
-    bucket = "qtdmt-imp"
+  bucket = "qtdmt-imp"
 }
