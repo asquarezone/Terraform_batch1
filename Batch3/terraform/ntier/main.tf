@@ -124,7 +124,7 @@ resource "aws_security_group_rule" "web_incoming" {
 resource "aws_vpc_security_group_egress_rule" "allow_all_web" {
   security_group_id = aws_security_group.web.id
   cidr_ipv4         = "0.0.0.0/0"
-  ip_protocol       = "-1" 
+  ip_protocol       = "-1"
 }
 
 resource "aws_security_group" "db" {
@@ -148,5 +148,5 @@ resource "aws_security_group_rule" "db_incoming" {
 resource "aws_vpc_security_group_egress_rule" "allow_all_db" {
   security_group_id = aws_security_group.db.id
   cidr_ipv4         = "0.0.0.0/0"
-  ip_protocol       = "-1" 
+  ip_protocol       = "-1"
 }

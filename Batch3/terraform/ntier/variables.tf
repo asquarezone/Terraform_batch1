@@ -62,3 +62,20 @@ variable "db_security_group" {
   }
 }
 
+variable "public_instance_config" {
+  type = object({
+    name          = string,
+    ami           = string,
+    instance_type = string,
+    key_name      = string
+  })
+  default = {
+    name          = "web-1",
+    ami           = "ami-08116b9957a259459",
+    instance_type = "t2.micro",
+    key_name      = "dmtkeypair"
+
+  }
+
+}
+
