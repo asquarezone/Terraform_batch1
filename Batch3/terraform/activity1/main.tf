@@ -14,3 +14,7 @@ provider "aws" {
 
 
 # find a resource for creating s3
+
+resource "aws_s3_bucket" "first" {
+    bucket = "qtdmt-imp"
+}
