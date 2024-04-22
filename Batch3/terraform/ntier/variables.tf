@@ -4,7 +4,7 @@ variable "network_cidr" {
   description = "cidr for a vpc"
 }
 
-variable "subnets_config" {
+variable "public_subnets" {
   type = list(object({
     cidr = string
     az   = string
@@ -18,7 +18,17 @@ variable "subnets_config" {
     cidr = "192.168.1.0/24"
     az   = "us-west-2b"
     name = "web2"
-    }, {
+    }
+  ]
+}
+
+variable "private_subnets" {
+  type = list(object({
+    cidr = string
+    az   = string
+    name = string
+  }))
+  default = [{
     cidr = "192.168.2.0/24"
     az   = "us-west-2a"
     name = "db1"
