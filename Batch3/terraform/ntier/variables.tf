@@ -40,3 +40,25 @@ variable "private_subnets" {
   ]
 }
 
+variable "web_security_group" {
+  type = object({
+    name  = string
+    ports = list(number)
+  })
+  default = {
+    name  = "web-sg"
+    ports = [80, 22]
+  }
+}
+
+variable "db_security_group" {
+  type = object({
+    name  = string
+    ports = list(number)
+  })
+  default = {
+    name  = "db-sg"
+    ports = [3306]
+  }
+}
+

@@ -100,3 +100,53 @@ resource "aws_route_table_association" "private_route_table_association" {
     aws_route_table.private_route_table
   ]
 }
+
+
+# Declare a security group for the public instances opening 80 and 22 ports
+
+resource "aws_security_group" "web" {
+  description = "Allow incoming HTTP connections & SSH access"
+  name        = var.web_security_group.name
+  vpc_id      = aws_vpc.network.id
+  depends_on  = [aws_vpc.network]
+}
+
+resource "aws_security_group_rule" "web_incoming" {
+  count             = length(var.web_security_group.ports)
+  type              = "ingress"
+  from_port         = var.web_security_group.ports[count.index]
+  to_port           = var.web_security_group.ports[count.index]
+  protocol          = local.tcp
+  cidr_blocks       = [local.any_where]
+  security_group_id = aws_security_group.web.id
+  depends_on        = [aws_security_group.web]
+}
+resource "aws_vpc_security_group_egress_rule" "allow_all_web" {
+  security_group_id = aws_security_group.web.id
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = "-1" 
+}
+
+resource "aws_security_group" "db" {
+  description = "Allow incoming HTTP connections & SSH access"
+  name        = var.db_security_group.name
+  vpc_id      = aws_vpc.network.id
+  depends_on  = [aws_vpc.network]
+}
+
+resource "aws_security_group_rule" "db_incoming" {
+  count             = length(var.db_security_group.ports)
+  type              = "ingress"
+  from_port         = var.db_security_group.ports[count.index]
+  to_port           = var.db_security_group.ports[count.index]
+  protocol          = local.tcp
+  cidr_blocks       = [var.network_cidr]
+  security_group_id = aws_security_group.db.id
+  depends_on        = [aws_security_group.db]
+}
+
+resource "aws_vpc_security_group_egress_rule" "allow_all_db" {
+  security_group_id = aws_security_group.db.id
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = "-1" 
+}
