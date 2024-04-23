@@ -62,7 +62,7 @@ variable "db_security_group" {
   }
 }
 
-variable "public_instance_config" {
+variable "web1_instance_config" {
   type = object({
     name          = string,
     ami           = string,
@@ -84,5 +84,24 @@ variable "public_instance_config" {
 variable "build_id" {
   type    = string
   default = "1"
+}
+
+variable "web2_instance_config" {
+  type = object({
+    name          = string,
+    ami           = string,
+    instance_type = string,
+    key_name      = string,
+    key_path      = string,
+    user_name     = string
+  })
+  default = {
+    name          = "web-2",
+    ami           = "ami-08116b9957a259459",
+    instance_type = "t2.micro",
+    key_name      = "dmtkeypair",
+    key_path      = "~/Downloads/dmtkeypair.pem",
+    user_name     = "ubuntu"
+  }
 }
 
