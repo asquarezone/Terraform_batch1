@@ -7,5 +7,5 @@ output "ssh-command" {
 }
 
 output "webserver-url" {
-    value = "http://${aws_instance.web1.public_ip}/kids"
+  value = "http://${aws_instance.web1.public_ip}/kids"
 }

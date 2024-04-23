@@ -78,8 +78,11 @@ variable "public_instance_config" {
     key_name      = "dmtkeypair",
     key_path      = "~/Downloads/dmtkeypair.pem",
     user_name     = "ubuntu"
-
   }
+}
 
+variable "build_id" {
+  type    = string
+  default = "1"
 }
 

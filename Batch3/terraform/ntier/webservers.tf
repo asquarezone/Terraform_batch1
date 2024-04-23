@@ -11,15 +11,29 @@ resource "aws_instance" "web1" {
     Name        = var.public_instance_config.name
     Environment = "dev"
   }
+  depends_on = [
+    aws_subnet.public_subnets,
+    aws_security_group.web
+  ]
+
+}
+
+resource "null_resource" "web1" {
   connection {
     type        = "ssh"
     user        = var.public_instance_config.user_name
-    host        = self.public_ip
+    host        = aws_instance.web1.public_ip
     private_key = file(var.public_instance_config.key_path)
   }
   provisioner "remote-exec" {
     script = "./scripts/install.sh"
 
+  }
+  depends_on = [
+    aws_instance.web1
+  ]
+  triggers = {
+    build_id = var.build_id
   }
 
 }
