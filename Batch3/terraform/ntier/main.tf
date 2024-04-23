@@ -3,7 +3,7 @@ resource "aws_vpc" "network" {
   cidr_block = var.network_cidr
   tags = {
     Name        = "ntier"
-    Environment = "dev"
+    Environment = terraform.workspace
   }
 }
 
@@ -15,7 +15,7 @@ resource "aws_subnet" "public_subnets" {
   availability_zone = var.public_subnets[count.index].az
   tags = {
     Name        = var.public_subnets[count.index].name
-    Environment = "dev"
+    Environment = terraform.workspace
   }
 
   depends_on = [aws_vpc.network]
@@ -30,7 +30,7 @@ resource "aws_subnet" "private_subnets" {
   availability_zone = var.private_subnets[count.index].az
   tags = {
     Name        = var.private_subnets[count.index].name
-    Environment = "dev"
+    Environment = terraform.workspace
   }
 
   depends_on = [aws_vpc.network]

@@ -7,7 +7,7 @@ resource "aws_lb" "kids" {
   subnets            = [for subnet in aws_subnet.public_subnets : subnet.id]
   tags = {
     Name        = "kids-lb"
-    Environment = "dev"
+    Environment = terraform.workspace
   }
   depends_on = [
     aws_instance.web1,

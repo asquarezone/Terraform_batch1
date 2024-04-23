@@ -9,7 +9,7 @@ resource "aws_instance" "web1" {
   vpc_security_group_ids      = [aws_security_group.web.id]
   tags = {
     Name        = var.web1_instance_config.name
-    Environment = "dev"
+    Environment = terraform.workspace
   }
   depends_on = [
     aws_subnet.public_subnets,
@@ -48,7 +48,7 @@ resource "aws_instance" "web2" {
   vpc_security_group_ids      = [aws_security_group.web.id]
   tags = {
     Name        = var.web2_instance_config.name
-    Environment = "dev"
+    Environment = terraform.workspace
   }
   depends_on = [
     aws_subnet.public_subnets,
