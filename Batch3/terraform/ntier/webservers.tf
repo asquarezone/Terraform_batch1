@@ -11,4 +11,15 @@ resource "aws_instance" "web1" {
     Name        = var.public_instance_config.name
     Environment = "dev"
   }
+  connection {
+    type        = "ssh"
+    user        = var.public_instance_config.user_name
+    host        = self.public_ip
+    private_key = file(var.public_instance_config.key_path)
+  }
+  provisioner "remote-exec" {
+    script = "./scripts/install.sh"
+
+  }
+
 }
