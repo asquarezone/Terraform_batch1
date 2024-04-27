@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: shortlived
+spec:
+  containers:
+    - name: shortlived
+      image: alpine
