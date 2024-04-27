@@ -6,8 +6,9 @@ metadata:
 spec:
   minReadySeconds: 2
   replicas: 2
-  selector: 
-    app: web
+  selector:
+    matchLabels: 
+      app: web
   strategy:
     type: "RollingUpdate"
     rollingUpdate:
