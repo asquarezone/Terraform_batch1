@@ -1,0 +1,26 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deploy
+spec:
+  minReadySeconds: 2
+  replicas: 2
+  selector: 
+    app: web
+  strategy:
+    type: "RollingUpdate"
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 50%
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: app
+          image: shaikkhajaibrahim/dmtest:1.0
+          ports:
+            - containerPort: 80
+              protocol: "TCP"
