@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-sidecars
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.25
+      ports:
+        - containerPort: 80
+          protocol: "TCP"
+    - name: logcollector
+      image: alpine
+      args:
+        - sleep
+        - 1d
