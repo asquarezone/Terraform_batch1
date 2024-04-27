@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: app-rs
+  labels:
+    for: rs
+spec:
+  minReadySeconds: 2
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+        for: pod
+    spec:
+      containers:
+        - name: app
+          image: shaikkhajaibrahim/dmtest:1.0
+          ports:
+            - containerPort: 80
+              protocol: "TCP"
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "128Mi"
