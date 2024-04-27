@@ -7,7 +7,7 @@ metadata:
     for: rs
 spec:
   minReadySeconds: 2
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: web
