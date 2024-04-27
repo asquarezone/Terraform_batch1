@@ -3,6 +3,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app-deploy
+  annotations:
+    kubernetes.io/change-cause: "version 3.0"
 spec:
   minReadySeconds: 2
   replicas: 2
@@ -21,7 +23,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: shaikkhajaibrahim/dmtest:2.0
+          image: shaikkhajaibrahim/dmtest:3.0
           ports:
             - containerPort: 80
               protocol: "TCP"
