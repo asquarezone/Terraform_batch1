@@ -1,0 +1,25 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-demo-app-config
+data:
+  HOST_NAME: "Test123"
+  DB_USER: "dmt"
+  DEBUG_LEVEL: "INFO"
+
+# load config from configmap as environmental variables 
+# in alpine pode
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: alpine-env-pod
+spec:
+  containers:
+    - name: alpine-env-container
+      image: alpine
+      args: ["sleep", "1d"]
+      envFrom:
+        - configMapRef:
+            name: cm-demo-app-config
