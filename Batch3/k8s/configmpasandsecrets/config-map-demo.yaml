@@ -23,3 +23,22 @@ spec:
       envFrom:
         - configMapRef:
             name: cm-demo-app-config
+
+# load config from configmap as volume
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: alpine-volume-pod
+spec:
+  containers:
+    - name: alpine-volume-container
+      image: alpine
+      args: ["sleep", "1d"]
+      volumeMounts:
+        - name: config-volume
+          mountPath: /config
+  volumes:
+    - name: config-volume
+      configMap:
+        name: cm-demo-app-config
